@@ -8,18 +8,24 @@ class MoviesIndex extends React.Component {
     super()
     this.state = { 
       movies: null,
+
       genreCheckboxes: {
         action: false,
         comedy: false
-      }
+      },
+
+      minRating: 0,
+      maxRating: 10
     }
-    this.genreList = ['action', 'comedy']
+    this.genreList = ['family', 'comedy', 'action']
     this.genreIds = {
-      action: 10751,
-      comedy: 35
+      family: 10751,
+      comedy: 35,
+      action: 28
     }
 
     this.handleChange = this.handleChange.bind(this)
+    this.handleChangeRating = this.handleChangeRating.bind(this)
   }
 
   componentDidMount() {
@@ -32,6 +38,10 @@ class MoviesIndex extends React.Component {
 
   handleChange(e) {
     this.setState({ genreCheckboxes: { ...this.state.genreCheckboxes, [e.target.name]: e.target.checked } })
+  }
+
+  handleChangeRating(e) {
+    this.setState({ [e.target.name]: Number(e.target.value) })
   }
 
   getSelectedGenres() {
@@ -52,16 +62,23 @@ class MoviesIndex extends React.Component {
     return (
       <div>
         <p>Pick your favourite genre:</p>
-        <label>Action</label>
-        <input name="action" onChange={this.handleChange} type="checkbox" />
+        {this.genreList.map(genre => (
+          <div key={genre}>
+            <label>{genre}</label>
+            <input name={genre} onChange={this.handleChange} type="checkbox" />
+          </div>))}
+        
+        <p>Rating</p>
+        <label>Min</label><input onChange={this.handleChangeRating} name="minRating" type="number"></input>
+        <label>Max</label><input onChange={this.handleChangeRating} name="maxRating" type="number"></input>
 
-        <label>Comedy</label>
-        <input name="comedy" type="checkbox" onChange={this.handleChange}/>
 
         <hr />
         {this.state.movies
           .filter(movie => {
-            return this.getSelectedGenres().every((genreId => movie.genre_ids.includes(genreId)))
+            const filterGenre = this.getSelectedGenres().every((genreId => movie.genre_ids.includes(genreId)))
+            const filterRating = (movie.vote_average >= this.state.minRating) && (movie.vote_average <= this.state.maxRating)
+            return filterGenre && filterRating
           })
           .map(movie =>
 
