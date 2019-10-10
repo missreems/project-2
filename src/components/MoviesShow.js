@@ -18,7 +18,7 @@ class MoviesShow extends React.Component {
 
     const genres = movie.genres
 
-    console.log(genres)
+    // console.log(genres)
     return (
       <div key={movie.id}>
         <h2 >{movie.title}</h2>

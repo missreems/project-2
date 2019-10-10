@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
+import 'bulma'
 
 class MoviesIndex extends React.Component {
   constructor(){
@@ -20,15 +21,28 @@ class MoviesIndex extends React.Component {
     console.log(this.state)
     if (!this.state.movies) return null
     return (
-      this.state.movies.map(movie =>
-        <div key={movie.id}>
-          <Link to={`/movies/${movie.id}`}>
-            <h2 >{movie.title}</h2>
-            <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}></img>
-            <h3>Rating: {movie.vote_average}</h3>
+      <div>
+        <p>Pick your favourite genre:</p>
+        <label>Action</label>
+        <input type="checkbox" />
+
+        <label>Comedy</label>
+        <input type="checkbox" />
+
+        <hr />
+        {this.state.movies.map(movie =>
+
+          <Link to={`/movies/${movie.id}`} key={movie.id}>
+            <div>
+              <h2 className="title">{movie.title}</h2>
+              <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}></img>
+              <h3 className="subtitle">Rating: {movie.vote_average}</h3>
+            </div>
+            <hr />
           </Link>
-        </div> 
-      )
+        )}
+
+      </div>
     )
   }
 }
