@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 
 class MoviesIndex extends React.Component {
   constructor(){
@@ -21,8 +22,11 @@ class MoviesIndex extends React.Component {
     return (
       this.state.movies.map(movie =>
         <div key={movie.id}>
-          <h2 >{movie.title}</h2>
-          <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}></img>
+          <Link to={`/movies/${movie.id}`}>
+            <h2 >{movie.title}</h2>
+            <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}></img>
+            <p>Rating: {movie.vote_average}</p>
+          </Link>
         </div> 
       )
     )

@@ -4,6 +4,7 @@ import { BrowserRouter, Switch, Route, Link } from 'react-router-dom'
 
 import Home from './components/Home'
 import MoviesIndex from './components/MoviesIndex'
+import MoviesShow from './components/MoviesShow'
 
 class App extends React.Component {
   render() {
@@ -16,6 +17,7 @@ class App extends React.Component {
           </nav>
           <Switch>
             <Route exact path="/" component={Home} />
+            <Route path="/movies/:id" component={MoviesShow} />
             <Route path="/movies" component={MoviesIndex} />
           </Switch>
         </main>
