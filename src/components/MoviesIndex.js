@@ -25,7 +25,7 @@ class MoviesIndex extends React.Component {
           <Link to={`/movies/${movie.id}`}>
             <h2 >{movie.title}</h2>
             <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}></img>
-            <p>Rating: {movie.vote_average}</p>
+            <h3>Rating: {movie.vote_average}</h3>
           </Link>
         </div> 
       )
