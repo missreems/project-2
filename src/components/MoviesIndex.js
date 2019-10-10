@@ -9,14 +9,13 @@ class MoviesIndex extends React.Component {
     this.state = { 
       movies: null,
 
-      genreCheckboxes: {
-        action: false,
-        comedy: false
-      },
+      genreCheckboxes: {},
 
       minRating: 0,
       maxRating: 10
     }
+
+
     this.genreList = ['family', 'comedy', 'action']
     this.genreIds = {
       family: 10751,
@@ -26,6 +25,7 @@ class MoviesIndex extends React.Component {
 
     this.handleChange = this.handleChange.bind(this)
     this.handleChangeRating = this.handleChangeRating.bind(this)
+    this.handleChangeRadio = this.handleChangeRadio.bind(this)
   }
 
   componentDidMount() {
@@ -50,13 +50,33 @@ class MoviesIndex extends React.Component {
       if (genreCheckboxes[genre]) includedIds.push(this.genreIds[genre])
       return includedIds
     }, [])
+  }
 
+  handleChangeRadio(e) {
+    if (e.target.value === 'popularity'){
+      this.setState( { movies: this.sortingPopularity(this.state.movies) } )
+    } else if (e.target.value === 'newest'){
+      this.setState( { movies: this.sortingDates(this.state.movies) } )
+    }
+  }
+
+  sortingPopularity(array) {
+    return array.sort((a,b) => b.popularity - a.popularity)
+  }
+
+  sortingDates(array) {
+    return array.sort((a,b) => new Date(b.release_date) - new Date(a.release_date))
   }
 
   render() {
+    
     console.log(this.state)
     console.log(this.getSelectedGenres())
+    // console.log(this.sortingDates())
     if (!this.state.movies) return null
+
+    this.state.movies.forEach(movie => console.log(movie.popularity))
+    this.state.movies.forEach(movie => console.log(movie.release_date))
     
     
     return (
@@ -69,12 +89,17 @@ class MoviesIndex extends React.Component {
           </div>))}
         
         <p>Rating</p>
-        <label>Min</label><input onChange={this.handleChangeRating} name="minRating" type="number"></input>
-        <label>Max</label><input onChange={this.handleChangeRating} name="maxRating" type="number"></input>
-
+        <label>Min</label><input onChange={this.handleChangeRating} name="minRating" type="number" />
+        <label>Max</label><input onChange={this.handleChangeRating} name="maxRating" type="number" />
+        
+        <label>Popularity</label><input onChange={this.handleChangeRadio} name="sortMovies" value="popularity" type="radio" />
+        <label>Newest</label><input onChange={this.handleChangeRadio} name="sortMovies" value="newest" type="radio" />
+        
 
         <hr />
         {this.state.movies
+
+          
           .filter(movie => {
             const filterGenre = this.getSelectedGenres().every((genreId => movie.genre_ids.includes(genreId)))
             const filterRating = (movie.vote_average >= this.state.minRating) && (movie.vote_average <= this.state.maxRating)
