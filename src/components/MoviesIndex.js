@@ -15,28 +15,37 @@ class MoviesIndex extends React.Component {
       maxRating: 10
     }
 
-
     this.genreList = ['family', 'comedy', 'action']
+
     this.genreIds = {
       family: 10751,
       comedy: 35,
       action: 28
     }
 
-    this.handleChange = this.handleChange.bind(this)
+    this.handleChangeGenre = this.handleChangeGenre.bind(this)
     this.handleChangeRating = this.handleChangeRating.bind(this)
     this.handleChangeRadio = this.handleChangeRadio.bind(this)
   }
 
   componentDidMount() {
-    axios.get('https://api.themoviedb.org/3/discover/movie?page=10', {
-      headers: { Authorization: `Bearer ${process.env.API_TOKEN}` }
-    })
-      .then(res => this.setState( { movies: res.data.results }))
-      .catch(err => console.log(err))
+    let allMovies = []
+    for (let i = 0; i < 10; i++){
+      axios.get(`https://api.themoviedb.org/3/discover/movie?page=${i + 1}`, {
+        headers: { Authorization: `Bearer ${process.env.API_TOKEN}` }
+      })
+        .then(res => {
+          allMovies = allMovies.concat(res.data.results)
+          // if (res.data.results.some(result => result.title === 'The Princess Diaries')) console.log('oh shit', i + 1)
+          if (i === 9) this.setState({ movies: allMovies })
+        })
+        .catch(err => console.log(err))
+    }
+
   }
 
-  handleChange(e) {
+  // FUNCTIONS
+  handleChangeGenre(e) {
     this.setState({ genreCheckboxes: { ...this.state.genreCheckboxes, [e.target.name]: e.target.checked } })
   }
 
@@ -68,46 +77,34 @@ class MoviesIndex extends React.Component {
     return array.sort((a,b) => new Date(b.release_date) - new Date(a.release_date))
   }
 
+  // RENDERING
   render() {
-    
     console.log(this.state)
-    console.log(this.getSelectedGenres())
-    // console.log(this.sortingDates())
     if (!this.state.movies) return null
-
-    this.state.movies.forEach(movie => console.log(movie.popularity))
-    this.state.movies.forEach(movie => console.log(movie.release_date))
-    
-    
+    // this.state.movies.forEach(movie => console.log(movie.popularity))
+    // this.state.movies.forEach(movie => console.log(movie.release_date))
     return (
       <div>
         <p>Pick your favourite genre:</p>
         {this.genreList.map(genre => (
           <div key={genre}>
             <label>{genre}</label>
-            <input name={genre} onChange={this.handleChange} type="checkbox" />
+            <input name={genre} onChange={this.handleChangeGenre} type="checkbox" />
           </div>))}
-        
         <p>Rating</p>
         <label>Min</label><input onChange={this.handleChangeRating} name="minRating" type="number" />
         <label>Max</label><input onChange={this.handleChangeRating} name="maxRating" type="number" />
-        
         <label>Popularity</label><input onChange={this.handleChangeRadio} name="sortMovies" value="popularity" type="radio" />
         <label>Newest</label><input onChange={this.handleChangeRadio} name="sortMovies" value="newest" type="radio" />
-        
-
         <hr />
         {this.state.movies
-
-          
           .filter(movie => {
             const filterGenre = this.getSelectedGenres().every((genreId => movie.genre_ids.includes(genreId)))
             const filterRating = (movie.vote_average >= this.state.minRating) && (movie.vote_average <= this.state.maxRating)
             return filterGenre && filterRating
           })
-          .map(movie =>
-
-            <Link to={`/movies/${movie.id}`} key={movie.id}>
+          .map((movie,i) =>
+            <Link to={`/movies/${movie.id}`} key={i}>
               <div>
                 <h2 className="title">{movie.title}</h2>
                 <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}></img>
@@ -116,7 +113,6 @@ class MoviesIndex extends React.Component {
               <hr />
             </Link>
           )}
-
       </div>
     )
   }
