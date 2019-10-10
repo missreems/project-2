@@ -1,9 +1,29 @@
 import React from 'react'
+import axios from 'axios'
 
 class MoviesIndex extends React.Component {
+  constructor(){
+    super()
+    this.state = { movies: null }
+  }
+
+  componentDidMount() {
+    axios.get('https://api.themoviedb.org/3/discover/movie?page=2', {
+      headers: { Authorization: `Bearer ${process.env.API_TOKEN}` }
+    })
+      .then(res => this.setState( { movies: res.data.results }))
+      .catch(err => console.log(err))
+  }
+
   render() {
+    console.log(this.state)
+    if (!this.state.movies) return null
     return (
-      <h1>Index Page</h1>
+      this.state.movies.map(movie =>
+        <div key={movie.id}>
+          <h2 >{movie.title}</h2>
+        </div> 
+      )
     )
   }
 }
