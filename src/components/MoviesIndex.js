@@ -1,7 +1,9 @@
 import React from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
-import 'bulma'
+
+import Sidebar from './Sidebar'
+import MovieCard from './MovieCard'
 
 class MoviesIndex extends React.Component {
   constructor(){
@@ -11,16 +13,43 @@ class MoviesIndex extends React.Component {
 
       genreCheckboxes: {},
 
-      minRating: 0,
-      maxRating: 10
+      minRating: 0
     }
 
-    this.genreList = ['family', 'comedy', 'action']
+    this.genreList = ['Action', 'Adventure', 'Animation', 'Comedy', 'Crime'
+      , 'Documentary'
+      , 'Drama'
+      , 'Family'
+      , 'Fantasy'
+      , 'History'
+      , 'Horror'
+      , 'Music'
+      , 'Mystery'
+      , 'Romance'
+      , 'SciFi'
+      , 'Thriller'
+      , 'War'
+      , 'Western' ]
 
     this.genreIds = {
-      family: 10751,
-      comedy: 35,
-      action: 28
+      Action: 28,
+      Adventure: 12,
+      Animation: 16,
+      Comedy: 35,
+      Crime: 80,
+      Documentary: 99,
+      Drama: 18,
+      Family: 10751,
+      Fantasy: 14,
+      History: 36,
+      Horror: 27,
+      Music: 10402,
+      Mystery: 9648,
+      Romance: 10749,
+      SciFi: 878,
+      Thriller: 53,
+      War: 10752,
+      Western: 37
     }
 
     this.handleChangeGenre = this.handleChangeGenre.bind(this)
@@ -84,36 +113,29 @@ class MoviesIndex extends React.Component {
     // this.state.movies.forEach(movie => console.log(movie.popularity))
     // this.state.movies.forEach(movie => console.log(movie.release_date))
     return (
-      <div>
-        <p>Pick your favourite genre:</p>
-        {this.genreList.map(genre => (
-          <div key={genre}>
-            <label>{genre}</label>
-            <input name={genre} onChange={this.handleChangeGenre} type="checkbox" />
-          </div>))}
-        <p>Rating</p>
-        <label>Min</label><input onChange={this.handleChangeRating} name="minRating" type="number" />
-        <label>Max</label><input onChange={this.handleChangeRating} name="maxRating" type="number" />
-        <label>Popularity</label><input onChange={this.handleChangeRadio} name="sortMovies" value="popularity" type="radio" />
-        <label>Newest</label><input onChange={this.handleChangeRadio} name="sortMovies" value="newest" type="radio" />
-        <hr />
-        {this.state.movies
-          .filter(movie => {
-            const filterGenre = this.getSelectedGenres().every((genreId => movie.genre_ids.includes(genreId)))
-            const filterRating = (movie.vote_average >= this.state.minRating) && (movie.vote_average <= this.state.maxRating)
-            return filterGenre && filterRating
-          })
-          .map((movie,i) =>
-            <Link to={`/movies/${movie.id}`} key={i}>
-              <div>
-                <h2 className="title">{movie.title}</h2>
-                <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}></img>
-                <h3 className="subtitle">Rating: {movie.vote_average}</h3>
-              </div>
-              <hr />
-            </Link>
-          )}
-      </div>
+      <>
+        <Sidebar 
+          displayFilter={true}
+          genreList={this.genreList}
+          handleChangeGenre={this.handleChangeGenre}
+          handleChangeRadio={this.handleChangeRadio}
+          handleChangeRating={this.handleChangeRating}
+        />
+        
+        <div className="content-wrapper">
+          <div className="content">
+            {this.state.movies
+              .filter(movie => {
+                const filterGenre = this.getSelectedGenres().every((genreId => movie.genre_ids.includes(genreId)))
+                const filterRating = (movie.vote_average >= this.state.minRating)
+                return filterGenre && filterRating
+              })
+              .map((movie,i) =>
+                <MovieCard movie={movie} key={i} />
+              )}
+          </div>
+        </div>
+      </>
     )
   }
 }

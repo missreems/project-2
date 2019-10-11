@@ -1,7 +1,14 @@
 import React from 'react'
+import Sidebar from './Sidebar'
 
 const Home = () => (
-  <h1 className="title">Home</h1>
+  <>
+  <Sidebar displayFilter={false}/>
+  <div>
+    <h1 className="title">Home</h1>
+  </div>
+  </>
+  
 )
 
 export default Home
