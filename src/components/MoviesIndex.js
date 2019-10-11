@@ -59,7 +59,7 @@ class MoviesIndex extends React.Component {
 
   componentDidMount() {
     let allMovies = []
-    for (let i = 0; i < 10; i++){
+    for (let i = 0; i < 35; i++){
       axios.get(`https://api.themoviedb.org/3/discover/movie?page=${i + 1}`, {
         headers: { Authorization: `Bearer ${process.env.API_TOKEN}` }
       })

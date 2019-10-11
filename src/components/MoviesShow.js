@@ -15,12 +15,15 @@ class MoviesShow extends React.Component {
   render() {
     if (!this.state.movie) return null
     const { movie } = this.state
-
+    const backgroundStyle = {
+      backgroundImage: `url('https://image.tmdb.org/t/p/original${movie.backdrop_path}')`,
+      backgroundSize: 'cover'
+    }
     const genres = movie.genres
 
     // console.log(genres)
     return (
-      <div className="movie-show-wrapper">
+      <div className="movie-show-wrapper" style={backgroundStyle}>
         <div className="movie-show" key={movie.id}>
           <div className="primary-info">
             <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}></img>
