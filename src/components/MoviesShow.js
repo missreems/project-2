@@ -20,26 +20,31 @@ class MoviesShow extends React.Component {
 
     // console.log(genres)
     return (
-      <div key={movie.id}>
-        <h2 >{movie.title}</h2>
+      <div className="movie-show-wrapper">
+        <div className="movie-show" key={movie.id}>
+          <div className="primary-info">
+            <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}></img>
+            <div className="movie-text">
+              <div className="primary-text">
+                <h2>{movie.title}</h2>
+                <h4>{movie.tagline}</h4>
+                <h5>Rating: {movie.vote_average} ({movie.vote_count} votes)</h5>
+              </div>
 
-        {movie.status !== 'Released' && <p>Status: {movie.status}</p>}
+              <div className="secondary-text">
+                {movie.status !== 'Released' && <p>Status: {movie.status}</p>}
+                <p>Duration: {movie.runtime} mins</p>
+                <p>Overview: {movie.overview}</p>
+                <p>Language(s):</p>
+                {movie.spoken_languages.map(language => (<p key={language.name}>{language.name}</p>))}
+                {genres.map((genre, i) => (<button key={i}>{genre.name}</button>))}
+              </div>
 
-        <p>Duration: {movie.runtime} mins</p>
+            </div>            
+          </div>
 
-        <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}></img>
-
-        <h4>{movie.tagline}</h4>
-
-        <p>Overview: {movie.overview}</p>
-
-        <h4>Rating: {movie.vote_average} ({movie.vote_count} votes)</h4>
-
-        <p>Language(s):</p>
-        {movie.spoken_languages.map(language => (<p key={language.name}>{language.name}</p>))}
-
-        {genres.map((genre, i) => (<button key={i}>{genre.name}</button>))}
-      </div> 
+        </div> 
+      </div>
     )
   }
 }

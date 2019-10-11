@@ -4,17 +4,13 @@ import { Link } from 'react-router-dom'
 const Sidebar = ({ displayFilter, genreList, handleChangeGenre, handleChangeRadio, handleChangeRating }) => (
   <div className="sidebar">
     <div className="sidebar-wrapper">
-      <nav>
-        <Link to="/">Home</Link>
-        <Link to="/movies">Index</Link>
-      </nav>
       {displayFilter && 
         <div className='filters'> 
           <h2>FILTERS</h2>
 
           <div className="rating">
             <label>Min Rating</label>
-            <input onChange={handleChangeRating} name="minRating" type="number" />
+            <input onChange={handleChangeRating} name="minRating" type="number" placeholder="0" />
           </div>
           
           <div className="radio">
