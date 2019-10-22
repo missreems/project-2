@@ -29,7 +29,8 @@ class MoviesIndex extends React.Component {
       , 'SciFi'
       , 'Thriller'
       , 'War'
-      , 'Western' ]
+      , 'Western'
+      , 'TV Movies' ]
 
     this.genreIds = {
       Action: 28,
@@ -49,7 +50,8 @@ class MoviesIndex extends React.Component {
       SciFi: 878,
       Thriller: 53,
       War: 10752,
-      Western: 37
+      Western: 37,
+      'TV Movies': 10770
     }
 
     this.handleChangeGenre = this.handleChangeGenre.bind(this)
@@ -66,7 +68,7 @@ class MoviesIndex extends React.Component {
         .then(res => {
           allMovies = allMovies.concat(res.data.results)
           // if (res.data.results.some(result => result.title === 'The Princess Diaries')) console.log('oh shit', i + 1)
-          if (i === 9) this.setState({ movies: allMovies })
+          if (i === 34) this.setState({ movies: allMovies })
         })
         .catch(err => console.log(err))
     }

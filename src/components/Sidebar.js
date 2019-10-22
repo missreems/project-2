@@ -6,7 +6,7 @@ const Sidebar = ({ displayFilter, genreList, handleChangeGenre, handleChangeRadi
     <div className="sidebar-wrapper">
       {displayFilter && 
         <div className='filters'> 
-          <h2>FILTERS</h2>
+          <h2>FIND A MOVIE</h2>
 
           <div className="rating">
             <label>Min Rating</label>
