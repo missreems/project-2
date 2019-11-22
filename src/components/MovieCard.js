@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 const MovieCard = ({ movie }) => {
-  const imageSize = '342'
+  const imageSize = '185'
   return (
     <div className="movieCard">
       <Link to={`/movies/${movie.id}`}>

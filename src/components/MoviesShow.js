@@ -26,7 +26,7 @@ class MoviesShow extends React.Component {
       <div className="movie-show-wrapper" style={backgroundStyle}>
         <div className="movie-show" key={movie.id}>
           <div className="primary-info">
-            <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}></img>
+            <img src={`https://image.tmdb.org/t/p/w342${movie.poster_path}`}></img>
             <div className="movie-text">
               <div className="primary-text">
                 <h2>{movie.title}</h2>

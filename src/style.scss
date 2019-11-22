@@ -63,7 +63,7 @@ main {
         height: 100%;
         display: flex;
         justify-content: center;
-        padding: 15px 0;
+        padding: 15px 10px;
 
         img {
           border: 1px solid rgb(122, 122, 122);
@@ -85,12 +85,12 @@ main {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  font-size: 25px;
-  height: 80%;
+  font-size: 14px;
+  height: 95%;
   // border-radius: 100%;
 
   h2 {
-    font-size: 60px;
+    font-size: 40px;
     text-align: center;
     font-family: "Bungee Inline", cursive;
   }
@@ -112,7 +112,7 @@ main {
     input {
       width: 50px;
       height: 50px;
-      font-size: 20px;
+      font-size: 18px;
       text-align: center;
       border-radius: 10px;
     }
@@ -179,7 +179,7 @@ main {
 .movie-show-wrapper {
 
   width: 100%;
-  height: 100vh;
+  // height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -196,14 +196,19 @@ main {
   
     .primary-info {
       display: flex;
-      padding: 40px;
+      padding: 20px 20px 10px;
       
+      img {
+        height: 500px;
+        width: auto;
+      }
+
       .movie-text {
         margin:0 20px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        margin-bottom: 90px;
+        margin-bottom: 20px;
 
         h2 {
           font-family: "Bungee Inline", cursive;
@@ -226,7 +231,7 @@ main {
           font-family: 'Graduate', cursive;
           color: white;
           font-size: 16px;
-          width: 120px;
+          width: 200px;
           height: 40px;
           padding: 10px;
           margin: 5px;
