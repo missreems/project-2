@@ -4,8 +4,9 @@
 
 
 # Intro
-This project is a Movies API project, the purpose is to successfully create an application using an external API using React. This project has been executed via pair programming in 2 days, and is my second project whilst studying at General Assembly in the Software Engineering Immersive.
+This project is a Movies API project, the purpose is to successfully create an application using an external API using React. This project has been executed via pair programming and is my second project whilst studying at General Assembly in the Software Engineering Immersive.
 
+Duration: 2 days
 
 ## Motivation
 As this is a pair programming project, my partner and I decided to go with a key interest of ours, movies. We use [The Movies Database](https://www.themoviedb.org/documentation/api) API heavily throughout to create an application which functions as a movie finder.
@@ -15,68 +16,77 @@ As this is a pair programming project, my partner and I decided to go with a key
 - [Deployment](##deployment)
 - [Tech Used](##tech-used)
 - [Getting Started](##getting-started)
-- [Game Architecture](##game-architecture)
-- [Challenges & Future Improvements](##challenges-&-future-improvements)
-- [Creator](##creator)
+- [Architecture](##architecture)
+  - [Movie Index](###movie-index)
+  - [Filter Sidebar](###filter-sidebar)
+  - [Movie Show](###movie-show)
+- [Challenges](##challenges)
+- [Improvements](##improvements)
+- [Developer](##developer)
+
+
+## Tech used
+* JavaScript
+  * React
+  * Axios
+* HTML
+* SAAS
 
 
 ## Deployment
-The game is deployed on GitHub Pages and it can be found here: https://github.com/missreems/react-movies-project
-The application can be found here: http://amazing-movies.herokuapp.com/
+The game is deployed on GitHub Pages and it can be found here: https://github.com/missreems/project-2
 
-## Tech used
-* HTML
-* CSS5
-* JavaScript
-* React
+The application can be found here: http://amazing-movies.herokuapp.com/
 
 
 ## Getting Started
-Download the source code of the application using the clone button on the GitHub page. To view the application, visit the Heroku link provided in [Deployment](##deployment). If any issues arise, check the console. All images used within the application have been requested and gained via the API. 
+Use the clone button to download the source code. In the terminal enter the following commands:
+
+```
+<!-- To install all the packages: -->
+$ yarn
+
+<!-- To run in your localhost: -->
+$ yarn serve
+```
+
+Check the console for any issues and if there are check the package.json for any dependancies missing
 
 
-## Game Architecture
+## Architecture
 
 Amazing Movies is an application created for the purpose of simplifying the process of searching for movies to watch.
 
+### Movie Index
+![Movie Index Page](screenshots/movie-index.png)
 
-The application has a main page containing lists of movies and a filter functionality on the sidebar, as well as a display page for each specific movie. The structure is functional and simple to keep the main attention on the main feature of the application, the filter sidebar. It is able to filter and sort the movies in various ways using checkboxes, radio buttons and a input field for numbers.
+The application has a Movie Index page which is also the home page. It contains lists of movies and a filter functionality on the sidebar.
 
+### Filter Sidebar
+The structure is functional and simple to keep the main attention on the main feature of the application, the filter sidebar. It is able to filter and sort the movies in various ways using checkboxes, radio buttons and a input field for numbers.
 
-Jelly Invaders is a game where the user moves the player and attempts to shoot all the moving jellies on the 10x10 grid before it reaches the bottom.
+![Filter Sidebar Functionality](screenshots/filter-sidebar.png)
 
-![readme-one](assets/screenshots/starting-page.png)
+![Filter Function](screenshots/filter-function.png)
 
-The game currently has one wave of jellies.
+The filter function above sifts through the movies depending on the checkboxes selected and the rating chosen in the number input field. We set the function to filter only when the filtering options were selected, else all movies would display on the Movie Index page.
 
-![readme-one](assets/screenshots/jellies.png)
+### Movie Show
 
+By clicking on a movie on the Movie Index page, this links to a Movie Show page which displays information for that specific movie.
 
-When the game begins, the computer releases the wave of jellies onto the grid. The jellies move across the grid from left to right, when it reaches the end of each line on the grid the jellies will move from left to right on the next line until they reach the red line indicated on the grid.
+![Movie Show Page](screenshots/movie-show.png)
 
-<!-- screenshot of red line -->
+## Challenges
+The main challenge of this project was creating radio buttons to sort the list of movies. Adjusting the sort array method to sort in the ways we wanted it, took a lot of time. However, using console log to see if our code was working really helped.
 
-The player's sprite is at the bottom of the grid, it is allowed to move left and right via the arrow keys, one cell at a time. The player can shoot the jellies via the 'V' key and releases a bullet only one at a time. The jellies move slighlty slower than the speed of the bullet.
+![Radio Buttons](screenshots/radio-buttons.png)
 
-After every bullet is shot by the player, the game checks for a 'win' by verifying if any jellies are left. If the result 'false' is returned from the length of the array of jellies, the player wins.
+## Improvements
+The improvements I would make is add a search bar to search a specific movie. This would allow the user to find a movie easily if they have one in mind.
 
-The game can be won by shooting all the jellies on the grid, else the screen will show the sign 'Game Over' if any jelly reaches the red line.
-
-![readme-one](assets/screenshots/winning-page.png) ![readme-one](assets/screenshots/losing-page.png)
-
-An example of the function...used for ... :
-<!-- screenshot of code for the function chosen to show -->
-
-
-## Challenges & Future Improvements
-The main challenge of this project was creating the game logic for each feature. Each feature introduced in the game allowed me to understand a little bit more about how to piece together code to produce a fully-working feature in the game. Also, connecting features together so they all worked well together was quite challenging.
-
-<!-- what was difficult specifically and what strategy was used to overcome this -->
-<!-- EXAMPLE - This strategy was effective as it allowed to easily debug which columns were being played on correctly or not. However, the code is quite long and it makes Squidward's move reliant on Spongebob's last one rather then looking at the whole game so far.-->
-
-In the future, I hope to refactor my key functions so the game works smoothly. I'd like to give the jellies the functionality of shooting at the player and adding an additional condition for losing the game.
+Another change I would add is to add more information on the Movie Show such as actor/actress names and linking that back to the Movie Index page, which is filtered showing only movies by the specific actor/actress.
 
 
-## Creator
+## Developer
 Reema Patel
-<!--  - Link to first project here: website link  -->
