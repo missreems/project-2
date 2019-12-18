@@ -67,7 +67,19 @@ The structure is functional and simple to keep the main attention on the main fe
 
 ![Filter Sidebar Functionality](screenshots/filter-sidebar.png)
 
-![Filter Function](screenshots/filter-function.png)
+```
+<div className="content">
+  {this.state.movies
+    .filter(movie => {
+      const filterGenre = this.getSelectedGenres().every((genreId => movie.genre_ids.includes(genreId)))
+      const filterRating = (movie.vote_average >= this.state.minRating)
+      return filterGenre && filterRating
+    })
+    .map((movie,i) =>
+      <MovieCard movie={movie} key={i} />
+    )}
+</div>
+```
 
 The filter function above sifts through the movies depending on the checkboxes selected and the rating chosen in the number input field. We set the function to filter only when the filtering options were selected, else all movies would display on the Movie Index page.
 
@@ -80,7 +92,23 @@ By clicking on a movie on the Movie Index page, this links to a Movie Show page 
 ## Challenges
 The main challenge of this project was creating radio buttons to sort the list of movies. Adjusting the sort array method to sort in the ways we wanted it, took a lot of time. However, using console log to see if our code was working really helped.
 
-![Radio Buttons](screenshots/radio-buttons.png)
+```
+handleChangeRadio(e) {
+    if (e.target.value === 'popularity'){
+      this.setState( { movies: this.sortingPopularity(this.state.movies) } )
+    } else if (e.target.value === 'newest'){
+      this.setState( { movies: this.sortingDates(this.state.movies) } )
+    }
+  }
+
+  sortingPopularity(array) {
+    return array.sort((a,b) => b.popularity - a.popularity)
+  }
+
+  sortingDates(array) {
+    return array.sort((a,b) => new Date(b.release_date) - new Date(a.release_date))
+  }
+```
 
 ## Improvements
 The improvements I would make is add a search bar to search a specific movie. This would allow the user to find a movie easily if they have one in mind.
@@ -89,4 +117,5 @@ Another change I would add is to add more information on the Movie Show such as 
 
 
 ## Developer
-Reema Patel
+- Reema Patel
+- Vikram Bageja: https://github.com/vikram1510
